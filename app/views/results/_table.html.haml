@@ -8,7 +8,11 @@
         %tr
           %td
             - @values.each do |k, v|
-              = k + "(" + v.to_s + ") "
+              - if k == "最高" or k == "便利"
+                %b{:style => 'color:red;'}
+                  = k + "(" + v.to_s + ") "
+              - else
+                = k + "(" + v.to_s + ") "
 
   %p{:class=>"pull-right pager"}
     = link_to "語彙抽出器に戻る", new_record_path
