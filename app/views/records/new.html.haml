@@ -1,14 +1,11 @@
-.apps-new-page
+.vocabulary-new-page
   .page-header
-    %h2 New
-    %small This is a sample new page.
+    .title
+      %h1
+        語彙抽出器
 
   .row
     .span12
       = render 'form'
 
-.row
-  .span10.offset1
-    %p.pull-left.pager
-      = link_to 'Back', records_path
-
+#result

@@ -2,9 +2,10 @@ class CreateRecords < ActiveRecord::Migration
   def change
     create_table :records do |t|
       t.string :key
-      t.text :value
+      t.string :tag
+      t.string :value
 
-      t.timestamps
+#      t.timestamps
     end
   end
 end

@@ -1,60 +1,53 @@
+# -*- coding: utf-8 -*-
+
 class RecordsController < ApplicationController
-  before_action :set_record, only: [:show, :edit, :update, :destroy]
-
-  def index
-    @records = Record.paginate(:page => params[:page], :order => "id DESC")
-  end
-
-  def show
-  end
-
   def new
     @record = Record.new
   end
 
-  def edit
-  end
-
   def create
-    @record = Record.new(record_params)
-
-    respond_to do |format|
-      if @record.save
-        format.html { redirect_to @record, notice: 'Record was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @record }
+    @record = Record.where(tag: record_params["tag"])
+    if @record.length >= 1
+      @record.each do |record|
+        session[:key] = record.key
+        session[:tag] = record.tag
+      end
+    else
+      @record = Record.where(key: record_params["key"])
+      if @record.length >= 1
+        @record.each do |record|
+          session[:key] = record.key
+          session[:tag] = record.tag
+        end
       else
-        format.html { render action: 'new' }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
+        @record = nil
+        session[:key] = nil
+        session[:tag] = nil
       end
     end
-  end
 
-  def update
-    respond_to do |format|
-      if @record.update(record_params)
-        format.html { redirect_to @record, notice: 'Record was successfully updated.' }
-        format.json { head :no_record }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
+    if session[:key].nil?
+      notice = '該当するユーザーの語彙は見つかりませんでした'
+      session[:result] = notice
+      respond_to do |format|
+        format.html { redirect_to root_path,
+          notice: notice }
+        format.json { render json: @record, record: :created, location: @record }
       end
-    end
-  end
+    else
+      notice = session[:key] + ' (' + session[:tag] + ')' + ' さんの語彙一覧を表示します'
+      session[:result] = notice
 
-  def destroy
-    @record.destroy
-    respond_to do |format|
-      format.html { redirect_to records_url }
-      format.json { head :no_record }
+      respond_to do |format|
+        format.html { redirect_to results_path,
+          notice: notice }
+        format.json { render json: @record, record: :created, location: @record }
+      end
     end
   end
 
   private
-    def set_record
-      @record = Record.find(params[:id])
-    end
-
     def record_params
-      params.require(:record).permit(:key, :value)
+      params.require(:record).permit(:key, :tag)
     end
 end
