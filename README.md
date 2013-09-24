@@ -4,11 +4,15 @@ Vocabulary
 **Extract the vocabulary of twitter users**
 
 
-## How to use
+## How do I get started?
 
-1. Fork it.
-2. Rename.
-3. Implement your code.
+    bundle install --path=vendor/bundler
+
+## How do I start the application?
+
+Start the app by running:
+
+    bundle exec rails server -p 3001 -e development
 
 
 Author
