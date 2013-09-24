@@ -1,0 +1,25 @@
+= form_for @record do |f|
+  - if @record.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@record.errors.count, "error")} prohibited this record from being saved:"
+      %ul
+        - @record.errors.full_messages.each do |msg|
+          %li= msg
+
+  .fieldset
+    .row
+      .span10.offset1
+        %h3
+          Input new record.
+        .input
+          .field
+            = f.label :key
+            = f.text_field :key
+          .field
+            = f.label :value
+            = f.text_area :value
+
+          .form-actions
+            .input
+              = f.submit 'Send', :class => 'btn btn-primary'
+

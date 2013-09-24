@@ -1,0 +1,34 @@
+%section
+  .container
+    .page-header
+      %h2 Detail
+      %small This is a sample detail page.
+
+    .row
+      .span10.offset1
+        %table{:class => 'table table-bordered table-striped'}
+          %thead
+            %tr
+              %th{:style => "width: 150px;"} Key
+              %th Value
+          %tbody
+            %tr
+              %td ID
+              %td= @record.id
+            %tr
+              %td Key
+              %td= @record.key
+            %tr
+              %td Value
+              %td= @record.value
+            %tr
+              %td Created at
+              %td= @record.created_at.strftime "%Y/%m/%d %X"
+            %tr
+              %td Updated at
+              %td= @record.updated_at.strftime "%Y/%m/%d %X"
+        %p.pull-left.pager
+          = link_to 'Back', records_path
+        %p.pull-right.pager
+          = link_to 'Edit', edit_record_path(@record)
+

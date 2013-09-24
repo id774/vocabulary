@@ -1,0 +1,13 @@
+.page-header
+  %h2 Editing
+  %small This is a sample edit page.
+
+= render 'form'
+
+.row
+  .span10.offset1
+    %p.pull-left.pager
+      = link_to 'Back', records_path
+    %p.pull-right.pager
+      = link_to 'Show', @record
+
