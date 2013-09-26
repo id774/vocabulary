@@ -27,7 +27,7 @@ class RecordsController < ApplicationController
     end
 
     if session[:key].nil?
-      notice = '該当するユーザーの語彙は見つかりませんでした'
+      notice = '該当するユーザーの語彙は見つかりませんでした (そのユーザーはおそらく調査対象ではありません)'
       session[:result] = notice
       respond_to do |format|
         format.html { redirect_to root_path,
