@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'json'
-
 class RecordsController < ApplicationController
   def new
     @record = Record.new
