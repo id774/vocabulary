@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'json'
+
 class RecordsController < ApplicationController
   def new
     @record = Record.new
@@ -8,17 +10,11 @@ class RecordsController < ApplicationController
   def create
     @record = Record.where(tag: record_params["tag"])
     if @record.length >= 1
-      @record.each do |record|
-        session[:key] = record.key
-        session[:tag] = record.tag
-      end
+      set_session_key
     else
       @record = Record.where(key: record_params["key"])
       if @record.length >= 1
-        @record.each do |record|
-          session[:key] = record.key
-          session[:tag] = record.tag
-        end
+        set_session_key
       else
         @record = nil
         session[:key] = nil
@@ -50,4 +46,12 @@ class RecordsController < ApplicationController
     def record_params
       params.require(:record).permit(:key, :tag)
     end
+
+    def set_session_key
+      @record.each do |record|
+        session[:key] = record.key
+        session[:tag] = record.tag
+      end
+    end
+
 end

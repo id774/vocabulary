@@ -1,4 +1,15 @@
 .span10.offset1
+  - if @accounts.length > 0
+    %table{:class => 'table table-bordered table-striped'}
+      %thead
+        %tr
+          %th 似た語彙のユーザーアカウント
+      %tbody
+        %tr
+          %td
+            - @accounts.each do |account|
+              = link_to account, "http://twitter.com/#{account}", :target => "_blank"
+
   - unless @values.nil?
     %table{:class => 'table table-bordered table-striped'}
       %thead
