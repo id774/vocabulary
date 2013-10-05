@@ -23,7 +23,7 @@ class ResultsController < ApplicationController
         hash = JSON.parse(group.json)
         if hash.has_key?(screen_name)
           hash.each do |k, v|
-            array << k
+            array << k unless k == screen_name
           end
         end
       end
