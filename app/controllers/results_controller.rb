@@ -6,8 +6,8 @@ class ResultsController < ApplicationController
   def index
     @values = nil
     @accounts = extract_group(session[:key])
-
     @record = Record.where(key: session[:key])
+
     if @record.length >= 1
       @record.each do |record|
         @values = JSON.parse(record.value)

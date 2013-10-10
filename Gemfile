@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'haml-rails'
 gem "compass-rails", "~> 2.0.alpha.0"
 gem 'i18n_generators'
+gem 'fluent-logger'
 
 group :doc do
   gem 'sdoc', require: false
