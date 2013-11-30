@@ -30,7 +30,7 @@ gem "will_paginate", '~> 3.0.0'
 # gem 'debugger', group: [:development, :test]
 
 group :test do
-  gem 'rspec'
+  gem 'rspec', '~> 2.14.0'
   gem 'rcov', :platforms => :mri_18
   gem 'simplecov'
   gem 'simplecov-rcov'
