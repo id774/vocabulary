@@ -1,8 +1,8 @@
-# Version:20131010
+# Version:20131205
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4'
+gem 'rails', '~> 4.0.2'
 gem 'sqlite3'
 gem 'sass-rails', '~> 4'
 gem 'uglifier', '~> 1.3'
@@ -20,14 +20,6 @@ gem 'fluent-logger'
 group :doc do
   gem 'sdoc', require: false
 end
-
-# gem "meta_search"
-gem "will_paginate", '~> 3.0.0'
-
-# gem 'bcrypt-ruby', '~> 3.0.0'
-# gem 'unicorn'
-# gem 'capistrano', group: :development
-# gem 'debugger', group: [:development, :test]
 
 group :test do
   gem 'rspec', '~> 2.14.0'
