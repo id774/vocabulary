@@ -8,8 +8,10 @@ class RecordsController < ApplicationController
   end
 
   def create
-    @fluentd = Fluent::Logger::FluentLogger.open('vocabulary',
-      host = 'localhost', port = 9999)
+    if Rails.env.production?
+      @fluentd = Fluent::Logger::FluentLogger.open('vocabulary',
+        host = 'localhost', port = 9999)
+    end
 
     @record = Record.where(tag: record_params["tag"])
     if @record.length >= 1
@@ -28,10 +30,12 @@ class RecordsController < ApplicationController
     if session[:key].nil?
       notice = '該当するユーザーの語彙は見つかりませんでした (そのユーザーはおそらく調査対象ではありません)'
       session[:result] = notice
-      @fluentd.post('failure', {
-        :key => record_params["key"],
-        :tag => record_params["tag"]
-      })
+      if Rails.env.production?
+        @fluentd.post('failure', {
+          :key => record_params["key"],
+          :tag => record_params["tag"]
+        })
+      end
       respond_to do |format|
         format.html { redirect_to root_path,
           notice: notice }
@@ -40,11 +44,12 @@ class RecordsController < ApplicationController
     else
       notice = session[:key] + ' (' + session[:tag] + ')' + ' さんの語彙一覧を表示します'
       session[:result] = notice
-      @fluentd.post('success', {
-        :key => session[:key],
-        :tag => session[:tag]
-      })
-
+      if Rails.env.production?
+        @fluentd.post('success', {
+          :key => session[:key],
+          :tag => session[:tag]
+        })
+      end
       respond_to do |format|
         format.html { redirect_to results_path,
           notice: notice }
