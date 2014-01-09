@@ -1,0 +1,11 @@
+- unless @values.nil?
+  %table{:class => 'table table-bordered table-striped'}
+    %thead
+      %tr
+        %th 語彙(件数)
+    %tbody
+      %tr
+        %td
+          - @values.each do |k, v|
+            = k + "(" + v.to_s + ") "
+
